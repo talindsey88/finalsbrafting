@@ -8,7 +8,7 @@ import Loading from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites,
+        destinations: state.destinations,
         promotions: state.promotions,
         partners: state.partners
     };
@@ -52,9 +52,9 @@ class Home extends Component {
         return (
             <ScrollView>
                 <RenderItem
-                    item={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
-                    isLoading={this.props.campsites.isLoading}
-                    errMess={this.props.campsites.errMess}
+                    item={this.props.destinations.destinations.filter(destination => destination.featured)[0]}
+                    isLoading={this.props.destinations.isLoading}
+                    errMess={this.props.destinations.errMess}
                 />
                 <RenderItem
                     item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}

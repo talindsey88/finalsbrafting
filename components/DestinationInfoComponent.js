@@ -7,29 +7,29 @@ import { postFavorite } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites,
+        destinations: state.destinations,
         comments: state.comments,
         favorites: state.favorites
     };
 };
 
 const mapDispatchToProps = {
-    postFavorite: campsiteId => (postFavorite(campsiteId))
+    postFavorite: destinationId => (postFavorite(destinationId))
 };
 
 
 
-function RenderCampsite(props) {
+function RenderDestination(props) {
 
-    const {campsite} = props;
+    const {destination} = props;
 
-    if (campsite) {
+    if (destination) {
         return (
             <Card
-                featuredTitle={campsite.name}
-                image={{uri: baseUrl + campsite.image}}>
+                featuredTitle={destination.name}
+                image={{uri: baseUrl + destination.image}}>
                 <Text style={{margin: 10}}>
-                    {campsite.description}
+                    {destination.description}
                 </Text>
                 <Icon
                     name={props.favorite ? 'heart' : 'heart-o'}
@@ -72,27 +72,27 @@ function RenderComments({comments}) {
 
 
 
-class CampsiteInfo extends Component {
+class DestinationInfo extends Component {
 
 
-    markFavorite(campsiteId) {
-        this.props.postFavorite(campsiteId);
+    markFavorite(destinationId) {
+        this.props.postFavorite(destinationId);
     }
 
 
     static navigationOptions = {
-        title: 'Campsite Information'
+        title: 'Destination Information'
     }
 
     render() {
-        const campsiteId = this.props.navigation.getParam('campsiteId');
-        const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
-        const comments = this.props.comments.comments.filter(comment => comment.campsiteId === campsiteId);
+        const destinationId = this.props.navigation.getParam('destinationId');
+        const destination = this.props.destinations.destinations.filter(destination => destination.id === destinationId)[0];
+        const comments = this.props.comments.comments.filter(comment => comment.destinationId === destinationId);
         return (
             <ScrollView>
-                <RenderCampsite campsite={campsite}
-                    favorite={this.props.favorites.includes(campsiteId)}
-                    markFavorite={() => this.markFavorite(campsiteId)}
+                <RenderDestination destination={destination}
+                    favorite={this.props.favorites.includes(destinationId)}
+                    markFavorite={() => this.markFavorite(destinationId)}
                 />
                 <RenderComments comments={comments} />
             </ScrollView>
@@ -100,4 +100,4 @@ class CampsiteInfo extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CampsiteInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(DestinationInfo);

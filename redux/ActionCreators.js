@@ -33,11 +33,11 @@ export const addComments = comments => ({
     payload: comments
 });
 
-export const fetchCampsites = () => dispatch => {
+export const fetchDestinations = () => dispatch => {
 
-    dispatch(campsitesLoading());
+    dispatch(destinationsLoading());
 
-    return fetch(baseUrl + 'campsites')
+    return fetch(baseUrl + 'destinations')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -52,22 +52,22 @@ export const fetchCampsites = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)))
-        .catch(error => dispatch(campsitesFailed(error.message)));
+        .then(destinations => dispatch(addDestinations(destinations)))
+        .catch(error => dispatch(destinationsFailed(error.message)));
 };
 
-export const campsitesLoading = () => ({
-    type: ActionTypes.CAMPSITES_LOADING
+export const destinationsLoading = () => ({
+    type: ActionTypes.DESTINATIONS_LOADING
 });
 
-export const campsitesFailed = errMess => ({
-    type: ActionTypes.CAMPSITES_FAILED,
+export const destinationsFailed = errMess => ({
+    type: ActionTypes.DESTINATIONS_FAILED,
     payload: errMess
 });
 
-export const addCampsites = campsites => ({
-    type: ActionTypes.ADD_CAMPSITES,
-    payload: campsites
+export const addDestinations = destinations => ({
+    type: ActionTypes.ADD_DESTINATIONS,
+    payload: destinations
 });
 
 export const fetchPromotions = () => dispatch => {

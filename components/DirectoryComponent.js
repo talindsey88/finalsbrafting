@@ -8,7 +8,7 @@ import Loading from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites
+        destinations: state.destinations
     };
 };
 
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 class Directory extends Component {
 
     static navigationOptions = {
-        title: 'Directory'
+        title: 'Destinations'
     }
 
     render() {
@@ -25,27 +25,27 @@ class Directory extends Component {
             return (
                 <Tile
                     title={item.name}
-                    caption={item.description}
+                    caption=""
                     featured
-                    onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
+                    onPress={() => navigate('DestinationInfo', { destinationId: item.id })}
                     imageSrc={{uri: baseUrl + item.image}}
                 />
             );
         };
 
-        if (this.props.campsites.isLoading) {
+        if (this.props.destinations.isLoading) {
             return <Loading />;
         }
-        if (this.props.campsites.errMess) {
+        if (this.props.destinations.errMess) {
             return (
                 <View>
-                    <Text>{this.props.campsites.errMess}</Text>
+                    <Text>{this.props.destinations.errMess}</Text>
                 </View>
             );
         }
         return (
             <FlatList
-                data={this.props.campsites.campsites}
+                data={this.props.destinations.destinations}
                 renderItem={renderDirectoryItem}
                 keyExtractor={item => item.id.toString()}
             />

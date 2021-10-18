@@ -2,9 +2,9 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
 
-export const fetchComments = () => dispatch => {
+export const fetchReviews = () => dispatch => {
     //baseUrl + 'sbrafting/destinations'
-    return fetch(baseUrl + 'comments')
+    return fetch(baseUrl + 'reviews')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -19,18 +19,18 @@ export const fetchComments = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(comments => dispatch(addComments(comments)))
-        .catch(error => dispatch(commentsFailed(error.message)));
+        .then(reviews => dispatch(addReviews(reviews)))
+        .catch(error => dispatch(reviewsFailed(error.message)));
 };
 
-export const commentsFailed = errMess => ({
-    type: ActionTypes.COMMENTS_FAILED,
+export const reviewsFailed = errMess => ({
+    type: ActionTypes.REVIEWS_FAILED,
     payload: errMess
 });
 
-export const addComments = comments => ({
-    type: ActionTypes.ADD_COMMENTS,
-    payload: comments
+export const addReviews = reviews => ({
+    type: ActionTypes.ADD_REVIEWS,
+    payload: reviews
 });
 
 export const fetchDestinations = () => dispatch => {
@@ -107,11 +107,11 @@ export const addPromotions = promotions => ({
     payload: promotions
 });
 
-export const fetchPartners = () => dispatch => {
+export const fetchSponsors = () => dispatch => {
     
-    dispatch(partnersLoading());
+    dispatch(sponsorsLoading());
 
-    return fetch(baseUrl + 'partners')
+    return fetch(baseUrl + 'sponsors')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -126,22 +126,22 @@ export const fetchPartners = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(partners => dispatch(addPartners(partners)))
-        .catch(error => dispatch(partnersFailed(error.message)));
+        .then(sponsors => dispatch(addsponsors(Sponsors)))
+        .catch(error => dispatch(sponsorsFailed(error.message)));
 };
 
-export const partnersLoading = () => ({
-    type: ActionTypes.PARTNERS_LOADING
+export const sponsorsLoading = () => ({
+    type: ActionTypes.SPONSORS_LOADING
 });
 
-export const partnersFailed = errMess => ({
-    type: ActionTypes.PARTNERS_FAILED,
+export const sponsorsFailed = errMess => ({
+    type: ActionTypes.SPONSORS_FAILED,
     payload: errMess
 });
 
-export const addPartners = partners => ({
-    type: ActionTypes.ADD_PARTNERS,
-    payload: partners
+export const addSponsors = sponsors => ({
+    type: ActionTypes.ADD_SPONSORS,
+    payload: sponsors
 });
 
 export const postFavorite = campsiteId => dispatch => {
@@ -155,23 +155,23 @@ export const addFavorite = campsiteId => ({
     payload: campsiteId
 });
 
-export const addComment = comment => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: comment
+export const addReview = review => ({
+    type: ActionTypes.ADD_REVIEW,
+    payload: review
 });
 
-export const postComment = (campsiteId, rating, author, text) => dispatch => {
+export const postReview = (destinationId, rating, author, text) => dispatch => {
     
-    const newComment = {
-        campsiteId: campsiteId,
+    const newReview = {
+        destinationId: destinationId,
         rating: rating,
         author: author,
         text: text
     };
-    newComment.date = new Date().toISOString();
+    newReview.date = new Date().toISOString();
 
     setTimeout(() => {
-        dispatch(addComment(newComment));
+        dispatch(addReview(newReview));
     }, 2000);
 }
 

@@ -8,7 +8,7 @@ import { postFavorite } from '../redux/ActionCreators';
 const mapStateToProps = state => {
     return {
         destinations: state.destinations,
-        comments: state.comments,
+        reviews: state.reviews,
         favorites: state.favorites
     };
 };
@@ -47,9 +47,9 @@ function RenderDestination(props) {
 }
 
 
-function RenderComments({comments}) {
+function RenderReviews({reviews}) {
 
-    const renderCommentItem = ({item}) => {
+    const renderReviewItem = ({item}) => {
         return (
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14}}>{item.text}</Text>
@@ -60,10 +60,10 @@ function RenderComments({comments}) {
     };
 
     return (
-        <Card title='Comments'>
+        <Card title='Reviews'>
             <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
+                data={reviews}
+                renderItem={renderReviewItem}
                 keyExtractor={item => item.id.toString()}
             />
         </Card>
@@ -87,14 +87,14 @@ class DestinationInfo extends Component {
     render() {
         const destinationId = this.props.navigation.getParam('destinationId');
         const destination = this.props.destinations.destinations.filter(destination => destination.id === destinationId)[0];
-        const comments = this.props.comments.comments.filter(comment => comment.destinationId === destinationId);
+        const reviews = this.props.reviews.reviews.filter(review => review.destinationId === destinationId);
         return (
             <ScrollView>
                 <RenderDestination destination={destination}
                     favorite={this.props.favorites.includes(destinationId)}
                     markFavorite={() => this.markFavorite(destinationId)}
                 />
-                <RenderComments comments={comments} />
+                <RenderReviews reviews={reviews} />
             </ScrollView>
         );
     }

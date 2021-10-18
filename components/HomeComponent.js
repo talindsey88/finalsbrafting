@@ -10,7 +10,7 @@ const mapStateToProps = state => {
     return {
         destinations: state.destinations,
         promotions: state.promotions,
-        partners: state.partners
+        sponsors: state.sponsors
     };
 };
 
@@ -62,9 +62,9 @@ class Home extends Component {
                     errMess={this.props.promotions.errMess}
                 />
                 <RenderItem
-                    item={this.props.partners.partners.filter(partner => partner.featured)[0]}
-                    isLoading={this.props.partners.isLoading}
-                    errMess={this.props.partners.errMess}
+                    item={this.props.sponsors.sponsors.filter(sponsor => sponsor.featured)[0]}
+                    isLoading={this.props.sponsors.isLoading}
+                    errMess={this.props.sponsors.errMess}
                 />
             </ScrollView>
         );

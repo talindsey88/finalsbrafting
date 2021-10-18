@@ -8,7 +8,7 @@ import Loading from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
-        partners: state.partners
+        sponsors: state.sponsors
     };
 };
 
@@ -29,7 +29,7 @@ class About extends Component {
         title: 'About Us'
     }
         render() {
-            const renderPartner = ({item}) => {
+            const renderSponsor = ({item}) => {
                 return (
                     <ListItem
                         title={item.name}
@@ -39,24 +39,24 @@ class About extends Component {
                 );
             };
     
-            if (this.props.partners.isLoading) {
+            if (this.props.sponsors.isLoading) {
                 return (
                     <ScrollView>
                         <Mission />
                         <Card
-                            title='Community Partners'>
+                            title='Sponsors'>
                             <Loading />
                         </Card>
                     </ScrollView>
                 );
             }
-            if (this.props.partners.errMess) {
+            if (this.props.sponsors.errMess) {
                 return (
                     <ScrollView>
                         <Mission />
                         <Card
-                            title='Community Partners'>
-                            <Text>{this.props.partners.errMess}</Text>
+                            title='Sponsors'>
+                            <Text>{this.props.sponsors.errMess}</Text>
                         </Card>
                     </ScrollView>
                 );
@@ -65,10 +65,10 @@ class About extends Component {
                 <ScrollView>
                 <Mission />
                 <Card
-                    title="Community Partners">
+                    title="Sponsors">
                     <FlatList 
-                        data={this.props.partners.partners}
-                        renderItem={renderPartner}
+                        data={this.props.sponsors.sponsors}
+                        renderItem={renderSponsor}
                         keyExtractor={item => item.id.toString()}
                     />
                 </Card>

@@ -3,9 +3,8 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { destinations } from './destinations';
 import { reviews } from './reviews';
-import { promotions } from './promotions';
+import { adventures } from './adventures';
 import { sponsors } from './sponsors';
-import { favorites } from './favorites';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -13,8 +12,7 @@ export const ConfigureStore = () => {
             destinations,
             reviews,
             sponsors,
-            promotions,
-            favorites
+            adventures,
         }),
         applyMiddleware(thunk, logger)
     );

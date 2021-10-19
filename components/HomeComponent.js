@@ -9,7 +9,7 @@ import Loading from './LoadingComponent';
 const mapStateToProps = state => {
     return {
         destinations: state.destinations,
-        promotions: state.promotions,
+        adventures: state.adventures,
         sponsors: state.sponsors
     };
 };
@@ -57,9 +57,9 @@ class Home extends Component {
                     errMess={this.props.destinations.errMess}
                 />
                 <RenderItem
-                    item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
-                    isLoading={this.props.promotions.isLoading}
-                    errMess={this.props.promotions.errMess}
+                    item={this.props.adventures.adventures.filter(adventure => adventure.featured)[0]}
+                    isLoading={this.props.adventures.isLoading}
+                    errMess={this.props.adventures.errMess}
                 />
                 <RenderItem
                     item={this.props.sponsors.sponsors.filter(sponsor => sponsor.featured)[0]}

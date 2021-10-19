@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, FlatList, View } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
+import { Card, Icon, Rating, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/ActionCreators';
+import * as MailComposer from 'expo-mail-composer';
+
 
 const mapStateToProps = state => {
     return {
         destinations: state.destinations,
-        reviews: state.reviews,
-        favorites: state.favorites
+        reviews: state.reviews
     };
-};
-
-const mapDispatchToProps = {
-    postFavorite: destinationId => (postFavorite(destinationId))
 };
 
 
@@ -22,6 +18,7 @@ const mapDispatchToProps = {
 function RenderDestination(props) {
 
     const {destination} = props;
+    
 
     if (destination) {
         return (
@@ -31,15 +28,17 @@ function RenderDestination(props) {
                 <Text style={{margin: 10}}>
                     {destination.description}
                 </Text>
-                <Icon
-                    name={props.favorite ? 'heart' : 'heart-o'}
-                    type='font-awesome'
-                    color='#f50'
-                    raised
-                    reverse
-                    onPress={() => props.favorite ? 
-                        console.log('Already set as a favorite') : props.markFavorite()}
-                />
+                <Button
+                            title="Send Email"
+                            buttonStyle={{backgroundColor: '#5637DD', margin: 40}}
+                            icon={<Icon
+                                name='envelope-o'
+                                type='font-awesome'
+                                color='#fff'
+                                iconStyle={{marginRight: 10}}
+                            />}
+                            onPress={() => this.sendMail()}
+                        />
             </Card>
         );
     }
@@ -52,10 +51,15 @@ function RenderReviews({reviews}) {
     const renderReviewItem = ({item}) => {
         return (
             <View style={{margin: 10}}>
-                <Text style={{fontSize: 14}}>{item.text}</Text>
-                <Text style={{fontSize: 12}}>{item.rating} Stars</Text>
-                <Text style={{fontSize: 12}}>{`-- ${item.author}, ${item.date}`}</Text>
-            </View>
+            <Text style={{fontSize: 14}}>{item.text}</Text>
+            <Rating
+                readonly
+                startingValue={item.rating}
+                imageSize={10}
+                style={{ paddingVertical:'5%', alignItems:'flex-start' }}
+            />
+            <Text style={{fontSize: 12}}>{`-- ${item.author}, ${item.date}`}</Text>
+        </View>
         );
     };
 
@@ -75,13 +79,16 @@ function RenderReviews({reviews}) {
 class DestinationInfo extends Component {
 
 
-    markFavorite(destinationId) {
-        this.props.postFavorite(destinationId);
-    }
-
-
     static navigationOptions = {
         title: 'Destination Information'
+    }
+
+    sendMail() {
+        MailComposer.composeAsync({
+            recipients: ['campsites@nucamp.co'],
+            subject: 'Inquiry',
+            body: 'To whom it may concern:'
+        })
     }
 
     render() {
@@ -90,14 +97,11 @@ class DestinationInfo extends Component {
         const reviews = this.props.reviews.reviews.filter(review => review.destinationId === destinationId);
         return (
             <ScrollView>
-                <RenderDestination destination={destination}
-                    favorite={this.props.favorites.includes(destinationId)}
-                    markFavorite={() => this.markFavorite(destinationId)}
-                />
+                <RenderDestination destination={destination}/>
                 <RenderReviews reviews={reviews} />
             </ScrollView>
         );
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DestinationInfo);
+export default connect(mapStateToProps)(DestinationInfo);

@@ -13,13 +13,13 @@ import { createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchDestinations, fetchReviews, fetchPromotions,
+import { fetchDestinations, fetchReviews, fetchAdventures,
     fetchSponsors } from '../redux/ActionCreators';
 
 const mapDispatchToProps = {
     fetchDestinations,
     fetchReviews,
-    fetchPromotions,
+    fetchAdventures,
     fetchSponsors
 };
 
@@ -249,7 +249,7 @@ class Main extends Component {
     componentDidMount() {
         this.props.fetchDestinations();
         this.props.fetchReviews();
-        this.props.fetchPromotions();
+        this.props.fetchAdventures();
         this.props.fetchSponsors();
     }
 

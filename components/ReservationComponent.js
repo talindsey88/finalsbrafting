@@ -32,8 +32,8 @@ class Reservation extends Component {
 
     resetForm() {
         this.setState({
-            campers: 1,
-            hikeIn: false,
+            rafters: 1,
+            firstTime: false,
             date: new Date(),
             showCalendar: false,
             showModal: false
@@ -43,13 +43,13 @@ class Reservation extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView backgroundColor="tan">
                 <View style={styles.formRow}>
-                    <Text style={styles.formLabel}>Number of Campers</Text>
+                    <Text style={styles.formLabel}>Number of Rafters</Text>
                     <Picker
                         style={styles.formItem}
-                        selectedValue={this.state.campers}
-                        onValueChange={itemValue => this.setState({campers: itemValue})}
+                        selectedValue={this.state.rafters}
+                        onValueChange={itemValue => this.setState({rafters: itemValue})}
                     >
                         <Picker.Item label='1' value='1' />
                         <Picker.Item label='2' value='2' />
@@ -60,7 +60,20 @@ class Reservation extends Component {
                     </Picker>
                 </View>
                 <View style={styles.formRow}>
-                    <Text style={styles.formLabel}>Hike-In?</Text>
+                    <Text style={styles.formLabel}>Destination</Text>
+                    <Picker
+                        style={styles.formItem}
+                        selectedValue={this.state.campers}
+                        onValueChange={itemValue => this.setState({campers: itemValue})}
+                    >
+                        <Picker.Item label='Desolation Canyon' value='Desolation Canyon' />
+                        <Picker.Item label='Gates of Lodore' value='Gates of Lodore' />
+                        <Picker.Item label='Grand Canyon' value='Grand Canyon' />
+                        <Picker.Item label='Yampa' value='Yampa' />
+                    </Picker>
+                </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.formLabel}>First Time?</Text>
                     <Switch
                         style={styles.formItem}
                         value={this.state.hikeIn}
@@ -75,7 +88,7 @@ class Reservation extends Component {
                             this.setState({showCalendar: !this.state.showCalendar})
                         }
                         title={this.state.date.toLocaleDateString('en-US')}
-                        color='#5637DD'
+                        color='maroon'
                         accessibilityLabel='Tap me to select a reservation date'
                     />
                 </View>
@@ -94,7 +107,7 @@ class Reservation extends Component {
                     <Button
                         onPress={() => this.handleReservation()}
                         title='Search'
-                        color='#5637DD'
+                        color='maroon'
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
@@ -132,6 +145,7 @@ class Reservation extends Component {
 
 const styles = StyleSheet.create({
     formRow: {
+        backgroundColor: 'tan',
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,

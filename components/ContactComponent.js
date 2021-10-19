@@ -22,9 +22,9 @@ class Contact extends Component {
 
     sendMail() {
         MailComposer.composeAsync({
-            recipients: ['campsites@nucamp.co'],
-            subject: 'Inquiry',
-            body: 'To whom it may concern:'
+            recipients: ['tripinfo@sbrafting.co'],
+            subject: 'Booking a Trip',
+            body: 'Im interested in booking a trip to'
         })
     }
     render() {

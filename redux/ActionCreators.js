@@ -70,11 +70,11 @@ export const addDestinations = destinations => ({
     payload: destinations
 });
 
-export const fetchPromotions = () => dispatch => {
+export const fetchAdventures = () => dispatch => {
     
-    dispatch(promotionsLoading());
+    dispatch(adventuresLoading());
 
-    return fetch(baseUrl + 'promotions')
+    return fetch(baseUrl + 'adventures')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -89,22 +89,22 @@ export const fetchPromotions = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(promotions => dispatch(addPromotions(promotions)))
-        .catch(error => dispatch(promotionsFailed(error.message)));
+        .then(adventures => dispatch(addAdventures(adventures)))
+        .catch(error => dispatch(adventuresFailed(error.message)));
 };
 
-export const promotionsLoading = () => ({
-    type: ActionTypes.PROMOTIONS_LOADING
+export const adventuresLoading = () => ({
+    type: ActionTypes.ADVENTURES_LOADING
 });
 
-export const promotionsFailed = errMess => ({
-    type: ActionTypes.PROMOTIONS_FAILED,
+export const adventuresFailed = errMess => ({
+    type: ActionTypes.ADVENTURES_FAILED,
     payload: errMess
 });
 
-export const addPromotions = promotions => ({
-    type: ActionTypes.ADD_PROMOTIONS,
-    payload: promotions
+export const addAdventures = adventures => ({
+    type: ActionTypes.ADD_ADVENTURES,
+    payload: adventures
 });
 
 export const fetchSponsors = () => dispatch => {
@@ -126,7 +126,7 @@ export const fetchSponsors = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(sponsors => dispatch(addsponsors(Sponsors)))
+        .then(sponsors => dispatch(addSponsors(sponsors)))
         .catch(error => dispatch(sponsorsFailed(error.message)));
 };
 
@@ -144,16 +144,6 @@ export const addSponsors = sponsors => ({
     payload: sponsors
 });
 
-export const postFavorite = campsiteId => dispatch => {
-    setTimeout(() => {
-        dispatch(addFavorite(campsiteId));
-    }, 2000);
-};
-
-export const addFavorite = campsiteId => ({
-    type: ActionTypes.ADD_FAVORITE,
-    payload: campsiteId
-});
 
 export const addReview = review => ({
     type: ActionTypes.ADD_REVIEW,
@@ -174,8 +164,3 @@ export const postReview = (destinationId, rating, author, text) => dispatch => {
         dispatch(addReview(newReview));
     }, 2000);
 }
-
-export const deleteFavorite = campsiteId => ({
-    type: ActionTypes.DELETE_FAVORITE,
-    payload: campsiteId
-}); 

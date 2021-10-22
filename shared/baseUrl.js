@@ -1,1 +1,1 @@
-export const baseUrl = 'http://10.0.0.45:3001/';
+export const baseUrl = 'https://tlindsey-json-server.herokuapp.com/';

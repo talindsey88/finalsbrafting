@@ -17,12 +17,13 @@ const mapStateToProps = state => {
 
 function RenderDestination(props) {
 
-    const {destination} = props;
+    const {destination, sendMail} = props;
     
 
     if (destination) {
         return (
             <Card
+                textColor={{black}}
                 featuredTitle={destination.name}
                 image={{uri: baseUrl + destination.image}}>
                 <Text style={{margin: 10}}>
@@ -37,7 +38,7 @@ function RenderDestination(props) {
                                 color='#fff'
                                 iconStyle={{marginRight: 10}}
                             />}
-                            onPress={() => this.sendMail()}
+                            onPress={() => sendMail(destination)}
                         />
             </Card>
         );
@@ -83,11 +84,11 @@ class DestinationInfo extends Component {
         title: 'Destination Information'
     }
 
-    sendMail() {
+    sendMail(destination) {
         MailComposer.composeAsync({
-            recipients: ['campsites@nucamp.co'],
+            recipients: ['tripinfo@sbrafting.co'],
             subject: 'Inquiry',
-            body: 'To whom it may concern:'
+            body: `Hello Im interested in booking a ${destination.name} trip` 
         })
     }
 
@@ -97,7 +98,7 @@ class DestinationInfo extends Component {
         const reviews = this.props.reviews.reviews.filter(review => review.destinationId === destinationId);
         return (
             <ScrollView>
-                <RenderDestination destination={destination}/>
+                <RenderDestination destination={destination} sendMail={this.sendMail}/>
                 <RenderReviews reviews={reviews} />
             </ScrollView>
         );
